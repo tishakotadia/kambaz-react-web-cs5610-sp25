@@ -1,23 +1,17 @@
 export default function Modules() { 
     return ( 
     <div> 
-        <button type="button"
-                onClick={() => alert("All collapsed")}
-                id="wd-all-collapse">
+        <button>
                 Collapse All
         </button>
-        <button type="button"
-                onClick={() => alert("View the progress")}
-                id="wd-all-progress">
+        <button>
                 View Progress
         </button>
         <label htmlFor="wd-select-one-publish"> </label><br/>
         <select id="wd-select-one-publish">
             <option selected value="Publish All">Publish All</option>
         </select> 
-        <button type="button"
-                onClick={() => alert("New Module")}
-                id="wd-all-module">
+        <button>
                 + Module
         </button>
 
