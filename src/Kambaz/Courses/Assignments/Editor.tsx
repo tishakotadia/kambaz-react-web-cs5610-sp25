@@ -1,8 +1,8 @@
  export default function AssignmentEditor() {
     return (
     <div id="wd-assignments-editor">
-        <label htmlFor="wd-name">Assignment Name</label>
-        <input id="wd-name" value="A1 - ENV + HTML" /><br /><br />
+        <label htmlFor="wd-name"><strong>Assignment Name</strong></label><br />
+        <input id="wd-name" value="A1 - ENV + HTML" style={{marginTop: "10px"}} /><br /><br />
         <textarea id="wd-description">
         The assignment is available online Submit a link to the landing page of your Web application running on Netlify.
         The landing page should include the following: Your full name and section Links to the Kanbas application
@@ -82,46 +82,54 @@
             </tr>
 
             <tr>
-              <td align="right">
-                <label htmlFor="wd-assign-to">Assign</label>
-              </td>
-              <td>Assign to
-                <input id="wd-assign-to" value="Everyone" />
-              </td>
-            </tr>
-            
-            <tr>
-              <td align="right">
-                <label htmlFor="wd-due-date">Due</label>
-              </td>
-              <td>
-                <input type="date" id="wd-due-date" value="2024-05-13" />
-              </td>
-            </tr>
-            
-            <tr>
-              <td align="right" valign="top">
-                <label htmlFor="wd-available-from">Available from</label>
-              </td>
-              <td>
-                <input type="date" id="wd-available-from" />
-              </td>
+            <td align="right" valign="top">
+              <label htmlFor="wd-assign-to">Assign</label>
+            </td>
+            <td>
+              Assign To
+            </td>
             </tr>
             <tr>
-              <td align="right" valign="top">
-                <label htmlFor="wd-available-until">Until</label>
-              </td>
-              <td>
-                <input type="date" id="wd-available-until" />
-              </td>
-            </tr>
-
+              <td></td>
+            <td>
+              <input id="wd-assign-to" value="Everyone" />
+            </td>
+          </tr>
+          <tr>
+            <td ></td>
+            <td >
+              <label htmlFor="wd-due-date">Due</label>
+            </td>
+          </tr>
+          <tr>
+          <td></td>
+            <td>
+              <input type="date" id="wd-due-date"/>
+            </td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>
+              <label htmlFor="wd-available-from">Available from</label>
+            </td>
+            <td></td>
+            <td>
+              <label htmlFor="wd-available-until">Until</label>
+            </td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>
+              <input type="date" id="wd-available-from" />
+            </td>
+            <td></td>
+            <td>
+              <input type="date" id="wd-available-until" />
+            </td>
+          </tr>
         </table>
-
-        <div style={{ textAlign: "right", marginTop: "20px" }}>
-          <button>Cancel</button>
-          <button style={{ marginLeft: "10px" }}>Save</button>
-        </div>
-
-    </div>
-);}
+        <hr />
+        <button style={{marginLeft: "120px", marginRight: "10px"}}>Cancel</button>
+        <button>Save</button>
+      </div>
+  );}
