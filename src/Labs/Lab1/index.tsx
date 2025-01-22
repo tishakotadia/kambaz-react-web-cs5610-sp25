@@ -2,6 +2,8 @@ export default function Lab1() {
     return (
         <div id="wd-lab1">
             <h2>Lab 1</h2>
+            <h3>Tisha Sujal Kotadia</h3>
+            <h3>Section 01</h3>
             <h3>HTML Examples</h3> 
 
             <div id="wd-h-tag"> 
@@ -178,12 +180,12 @@ How to make pancakes: <ol id="wd-pancakes"> <li>Mix dry ingredients.</li> <li>Ad
              </div>
 
              <h4>Anchor tag</h4>
-            Please
-            <a href="https://www.lipsum.com" id="wd-lipsum"> click here</a>
+            Please 
+            <a href="https://www.lipsum.com" id="wd-lipsum"> click here </a>
              to get dummy text<br/>
-            Please
+            Please 
             <a href="https://github.com/tishakotadia/kambaz-react-web-cs5610-sp25/tree/a1" id="wd-github">
-             click here</a> to visit my github repository.<br/>
+             click here </a> to visit my github repository.<br/>
 
         </div>
 );}
