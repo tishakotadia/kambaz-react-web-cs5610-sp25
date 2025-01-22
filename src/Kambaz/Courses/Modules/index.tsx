@@ -1,17 +1,17 @@
 export default function Modules() { 
     return ( 
     <div> 
-        <button>
+        <button style={{ marginRight: "10px"}}>
                 Collapse All
         </button>
-        <button>
+        <button style={{ marginRight: "10px"}}>
                 View Progress
         </button>
         <label htmlFor="wd-select-one-publish"> </label><br/>
-        <select id="wd-select-one-publish">
+        <select id="wd-select-one-publish" style={{ marginRight: "10px"}}>
             <option selected value="Publish All">Publish All</option>
         </select> 
-        <button>
+        <button style={{ marginRight: "10px"}}>
                 + Module
         </button>
 
