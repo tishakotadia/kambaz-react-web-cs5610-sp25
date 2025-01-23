@@ -3,12 +3,12 @@
     <div id="wd-assignments-editor">
         <label htmlFor="wd-name"><strong>Assignment Name</strong></label><br />
         <input id="wd-name" value="A1 - ENV + HTML" style={{marginTop: "10px"}} /><br /><br />
-        <textarea id="wd-description">
+        <textarea rows={10} cols={40} id="wd-description">
         The assignment is available online Submit a link to the landing page of your Web application running on Netlify.
         The landing page should include the following: Your full name and section Links to the Kanbas application
         Links to all relevant source code repositories The Kanbas application should include a link to navigate back to the landing page.
         </textarea>
-        <br />
+        <br /><br />
         <table>
             <tr>
                 <td align="right" valign="top">
@@ -18,6 +18,7 @@
                 <input id="wd-points" value={100} />
                 </td>
             </tr>
+            <br />
             <tr>
                 <td align="right" valign="top">
                 <label htmlFor="wd-group">Assignment Group</label>
@@ -31,6 +32,7 @@
                 </select>
                 </td>
             </tr>
+            <br />
             <tr>
                 <td align="right" valign="top">
                 <label htmlFor="wd-display-grade-as">Display Grade as</label>
@@ -42,6 +44,7 @@
                 </select>
                 </td>
             </tr>
+            <br />
             <tr>
                 <td align="right" valign="top">
                 <label htmlFor="wd-submission-type">Submission Type</label>
@@ -53,7 +56,7 @@
                 </select>
                 </td>
             </tr>
-
+            <br />
             <tr>
               <td></td>
               <td>
@@ -80,7 +83,7 @@
                 </div>
               </td>
             </tr>
-
+            <br />
             <tr>
             <td align="right" valign="top">
               <label htmlFor="wd-assign-to">Assign</label>
@@ -95,6 +98,7 @@
               <input id="wd-assign-to" value="Everyone" />
             </td>
           </tr>
+          <br />
           <tr>
             <td ></td>
             <td >
@@ -104,9 +108,10 @@
           <tr>
           <td></td>
             <td>
-              <input type="date" id="wd-due-date"/>
+              <input type="date" id="wd-due-date" value="2024-13-05" />
             </td>
           </tr>
+          <br />
           <tr>
             <td></td>
             <td>
@@ -120,11 +125,11 @@
           <tr>
             <td></td>
             <td>
-              <input type="date" id="wd-available-from" />
+              <input type="date" id="wd-available-from" value="2024-06-05" />
             </td>
             <td></td>
             <td>
-              <input type="date" id="wd-available-until" />
+              <input type="date" id="wd-available-until" value="2024-20-05" />
             </td>
           </tr>
         </table>
