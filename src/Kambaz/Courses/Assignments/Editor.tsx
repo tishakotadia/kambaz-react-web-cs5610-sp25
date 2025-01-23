@@ -57,7 +57,7 @@
             <tr>
               <td></td>
               <td>
-                <h4>Online Entry Options</h4>
+                Online Entry Options
                 <div>
                   <input type="checkbox" id="wd-text-entry" />
                   <label htmlFor="wd-text-entry">Text Entry</label>
@@ -129,7 +129,7 @@
           </tr>
         </table>
         <hr />
-        <button style={{marginLeft: "120px", marginRight: "10px"}}>Cancel</button>
+        <button style={{marginLeft: "300px", marginRight: "10px"}}>Cancel</button>
         <button>Save</button>
       </div>
   );}
