@@ -11,6 +11,7 @@ import Zindex from "./Zindex";
 import Float from "./Float";
 import GridLayout from "./GridLayout";
 import Flex from "./Flex";
+import ReactIconsSampler from "./ReactIcons";
 export default function Lab2() {
     return (
     <div id="wd-lab2">
@@ -78,5 +79,7 @@ export default function Lab2() {
     <GridLayout />
 
     <Flex />
+
+    <ReactIconsSampler />
 
     </div>);}
