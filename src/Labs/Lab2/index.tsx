@@ -2,6 +2,8 @@ import "./index.css";
 import ForegroundColors from "./ForegroundColors";
 import BackgroundColors from "./BackgroundColors";
 import Borders from "./Borders";
+import Padding from "./Padding";
+import Margins from "./Margins";
 export default function Lab2() {
     return (
     <div id="wd-lab2">
@@ -51,5 +53,9 @@ export default function Lab2() {
     <BackgroundColors />
 
     <Borders />
-    
+
+    <Padding />
+
+    <Margins />
+
     </div>);}
