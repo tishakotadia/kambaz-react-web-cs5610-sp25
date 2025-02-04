@@ -23,7 +23,7 @@ export default function Modules() {
                 <span className="wd-title">READING</span>
                 <ul className="wd-content">
                   <li className="wd-content-item">Full Stack Developer - Chapter 1 - Introduction</li>
-                  <li className="wd-content-item">Full Stack Developer - Chapter 2 - Creating User Interface</li>
+                  <li className="wd-content-item">Full Stack Developer - Chapter 2 - Creating UI</li>
                 </ul>
               </li>
               <li className="wd-lesson">
