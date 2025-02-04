@@ -1,4 +1,5 @@
 import "./index.css";
+import "./ForegroundColors";
 export default function Lab2() {
     return (
     <div id="wd-lab2">
