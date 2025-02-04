@@ -11,10 +11,11 @@ import Zindex from "./Zindex";
 import Float from "./Float";
 import GridLayout from "./GridLayout";
 import Flex from "./Flex";
-// import ReactIconsSampler from "./ReactIcons";
+import { Container } from "react-bootstrap";
+import ReactIconsSampler from "./ReactIcons";
 export default function Lab2() {
     return (
-    <div id="wd-lab2">
+    <Container fluid id="wd-lab2"> 
     <h2>Lab 2 - Cascading Style Sheets</h2>
     <h3>Styling with the STYLE attribute</h3>
     <p>
@@ -80,4 +81,6 @@ export default function Lab2() {
 
     <Flex />
 
-    </div>);}
+    <ReactIconsSampler />
+
+    </Container>);}
