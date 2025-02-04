@@ -15,7 +15,7 @@ import { Container } from "react-bootstrap";
 import ReactIconsSampler from "./ReactIcons";
 export default function Lab2() {
     return (
-    <Container fluid id="wd-lab2"> 
+    <Container id="wd-lab2"> 
     <h2>Lab 2 - Cascading Style Sheets</h2>
     <h3>Styling with the STYLE attribute</h3>
     <p>
