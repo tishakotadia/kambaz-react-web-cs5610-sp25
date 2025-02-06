@@ -49,7 +49,6 @@ export default function AssignmentEditor() {
               <Col sm={5}>
                 <Form.Group controlId="wd-group">
                   <Form.Select id="wd-group">
-                    <option>Assignment Group</option>
                     <option value="1">ASSIGNMENTS</option>
                     <option value="2">None</option>
                   </Form.Select>
