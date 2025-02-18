@@ -24,6 +24,7 @@ import TodoList from "./todos/TodoList";
 import Spreading from "./Spreading";
 import Destructing from "./Destructing";
 import FunctionDestructing from "./FunctionDestructing";
+import DestructingImports from "./DestructingImports";
 export default function Lab3() {
     return (
     <div id="wd-lab3">
@@ -54,6 +55,7 @@ export default function Lab3() {
     <Spreading/>
     <Destructing/>
     <FunctionDestructing/>
+    <DestructingImports/>
     </div>
     );
     }
