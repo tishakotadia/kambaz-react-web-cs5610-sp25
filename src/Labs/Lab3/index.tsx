@@ -30,6 +30,8 @@ import Styles from "./Styles";
 import Add from "./Add";
 import Square from "./Square";
 import Highlight from "./Highlight";
+import AddPathParameters from "./AddPathParameters";
+import PathParameters from "./PathParameters";
 export default function Lab3() {
     return (
     <div id="wd-lab3">
@@ -73,6 +75,8 @@ export default function Lab3() {
         vel nihil repellat nemo explicabo excepturi consectetur. Modi omnis minus sequi maiores, provident voluptates.
     </Highlight>
     <hr />
+    <PathParameters/>
+    
     </div>
     );
     }
