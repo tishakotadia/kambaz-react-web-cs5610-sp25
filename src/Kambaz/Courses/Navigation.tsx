@@ -21,7 +21,8 @@ export default function CourseNavigation() {
     { label: "Assignments", path: `/Kambaz/Courses/${course._id}/Assignments` },
     { label: "Quizzes", path: `/Kambaz/Courses/${course._id}/Quizzes` },
     { label: "Grades", path: `/Kambaz/Courses/${course._id}/Grades` },
-    { label: "People", path: `/Kambaz/Courses/${course._id}/People` }
+    { label: "People", path: `/Kambaz/Courses/${course._id}/People` },
+    { label: "Settings", path: `/Kambaz/Courses/${course._id}/Settings` }
   ];
 
   return ( 

@@ -3,11 +3,14 @@ import LessonControlButtons from "./LessonControlButtons";
 import { BsGripVertical } from "react-icons/bs";
 import { useParams } from "react-router";
 import * as db from "../../Database";
+import ModulesControls from "./ModulesControls";
 export default function Modules() {
   const { cid } = useParams();
   const modules = db.modules;
 
     return (
+      <div>
+        <ModulesControls /><br /><br /><br /><br />
       <ul id="wd-modules" className="list-group rounded-0">
         {modules
           .filter((module: any) => module.course === cid)
@@ -26,5 +29,6 @@ export default function Modules() {
               </ul>)}
           </li>))}
       </ul>
+      </div>
     );
 }

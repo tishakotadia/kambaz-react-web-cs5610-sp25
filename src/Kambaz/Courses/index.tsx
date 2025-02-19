@@ -29,6 +29,7 @@ export default function Courses() {
                         <Route path="Quizzes" element={<h2>Quizzes</h2>} />
                         <Route path="Grades" element={<h2>Grades</h2>} />
                         <Route path="People" element={<PeopleTable />} /> 
+                        <Route path="Settings" element={<h2>Settings</h2>} />
                     </Routes> 
                     </div></div>
     </div>
