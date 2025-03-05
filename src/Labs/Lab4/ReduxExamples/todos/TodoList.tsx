@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, FormControl, ListGroup } from "react-bootstrap";
+import { ListGroup } from "react-bootstrap";
 import TodoForm from "./TodoForm";
 import TodoItem from "./TodoItem";
 export default function TodoList() {
@@ -28,11 +28,10 @@ export default function TodoList() {
   };
 
   return (
-    <div>
+    <div id="wd-todo-list-redux">
       <h2>Todo List</h2>
       <ListGroup>
-        <ListGroup.Item>
-        <TodoForm
+      <TodoForm
           todo={todo}
           setTodo={setTodo}
           addTodo={addTodo}
@@ -44,29 +43,6 @@ export default function TodoList() {
             setTodo={setTodo} />
         ))}
 
-          <Button onClick={() => addTodo(todo)} id="wd-add-todo-click">
-            Add
-          </Button>
-          <Button onClick={() => updateTodo(todo)} id="wd-update-todo-click">
-            Update
-          </Button>
-          <FormControl
-            value={todo.title}
-            onChange={(e) => setTodo({ ...todo, title: e.target.value })}
-          />
-        </ListGroup.Item>
-
-        {todos.map((todo) => (
-          <ListGroup.Item key={todo.id}>
-            <Button onClick={() => deleteTodo(todo.id)} id="wd-delete-todo-click">
-              Delete
-            </Button>
-            <Button onClick={() => setTodo(todo)} id="wd-set-todo-click">
-              Edit
-            </Button>
-            {todo.title}
-          </ListGroup.Item>
-        ))}
       </ListGroup>
       <hr />
     </div>

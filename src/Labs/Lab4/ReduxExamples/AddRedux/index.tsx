@@ -19,7 +19,7 @@ export default function AddRedux() {
               onClick={() => dispatch(add({ a, b }))}>
         Add Redux
       </Button>
-      <hr/>
+      
     </div>
   );
 }
