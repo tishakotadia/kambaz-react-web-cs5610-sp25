@@ -7,6 +7,7 @@ import { Navigate, Route, Routes, useParams, useLocation } from "react-router";
 //import { courses } from "../Database";
 import { FaAlignJustify } from "react-icons/fa6";
 import PeopleTable from "./People/Table";
+import AssignmentEditorViewOnly from "./Assignments/AssignmentEditorViewOnly";
 export default function Courses({ courses }: { courses: any[]; }) {
   const { cid } = useParams();
   const course = courses.find((course) => course._id === cid);
@@ -26,10 +27,12 @@ export default function Courses({ courses }: { courses: any[]; }) {
                         <Route path="Zoom" element={<h2>Zoom</h2>} />
                         <Route path="Assignments" element={<Assignments />} />
                         <Route path="Assignments/:aid" element={<AssignmentEditor />} /> 
+                        <Route path="Assignments/:aid/AssignmentEditorViewOnly" element={<AssignmentEditorViewOnly />} />
                         <Route path="Quizzes" element={<h2>Quizzes</h2>} />
                         <Route path="Grades" element={<h2>Grades</h2>} />
                         <Route path="People" element={<PeopleTable />} /> 
                         <Route path="Settings" element={<h2>Settings</h2>} />
+                        <Route path="AssignmentEditor" element={<AssignmentEditor />} />
                     </Routes> 
                     </div></div>
     </div>
