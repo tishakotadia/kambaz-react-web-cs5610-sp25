@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import { useSelector } from "react-redux";
 
-export default function AssignmentEditorViewOnly() {
+export default function AssignmentEditorView() {
   const { cid, aid } = useParams();
   //const courseAssignments = db.assignments.filter((assignment) => assignment.course === cid);
   const { assignments } = useSelector((state: any) => state.assignmentReducer);
