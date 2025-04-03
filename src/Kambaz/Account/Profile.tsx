@@ -1,9 +1,9 @@
-import * as client from "./client";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setCurrentUser } from "./reducer";
 import { Button, FormControl } from "react-bootstrap";
+import * as client from "./client";
 export default function Profile() {
   const [profile, setProfile] = useState<any>({});
   const dispatch = useDispatch();
@@ -13,6 +13,7 @@ export default function Profile() {
     const updatedProfile = await client.updateUser(profile);
     dispatch(setCurrentUser(updatedProfile));
   };
+
   const fetchProfile = () => {
     if (!currentUser) return navigate("/Kambaz/Account/Signin");
     setProfile(currentUser);
@@ -23,7 +24,6 @@ export default function Profile() {
     navigate("/Kambaz/Account/Signin");
   };
   useEffect(() => { fetchProfile(); }, []);
-
   return (
     <div className="wd-profile-screen">
       <h3>Profile</h3>
@@ -41,9 +41,7 @@ export default function Profile() {
                        onChange={(e) => setProfile({ ...profile, dob: e.target.value })} type="date"/>
           <FormControl defaultValue={profile.email} id="wd-email" className="mb-2"
                        onChange={ (e) => setProfile({ ...profile, email: e.target.value })}/>
-          {/* <FormControl defaultValue={profile.role} id="wd-role" className="mb-2"
-                       onChange={ (e) => setProfile({ ...profile, role: e.target.value })}/> */}
-          <select value={profile.role || "USER"} onChange={(e) => setProfile({ ...profile, role:  e.target.value })}
+          <select onChange={(e) => setProfile({ ...profile, role:  e.target.value })}
                  className="form-control mb-2" id="wd-role">
             <option value="USER">User</option>            <option value="ADMIN">Admin</option>
             <option value="FACULTY">Faculty</option>      <option value="STUDENT">Student</option>
@@ -55,4 +53,3 @@ export default function Profile() {
         </div>
       )}
 </div>);}
-

@@ -6,19 +6,34 @@ import GreenCheckmark from "../Modules/GreenCheckmark";
 import { useNavigate, useParams } from "react-router";
 import { useSelector } from "react-redux";
 
-export default function AssignmentControlButtons(
-  { assignmentId, deleteAssignment }: { assignmentId: string; deleteAssignment: (assignmentId: string) => void }
-) {
+interface AssignmentControlButtonsProps {
+  assignmentId: string;
+  deleteAssignment: (assignmentId: string) => Promise<any>;
+  updateAssignment?: (assignment: any) => Promise<any>;
+}
+
+export default function AssignmentControlButtons({
+  assignmentId,
+  deleteAssignment
+}: AssignmentControlButtonsProps) {
   const { currentUser } = useSelector((state: any) => state.accountReducer);
   const { cid } = useParams();
   const navigate = useNavigate();
   const isAdminOrFaculty = currentUser.role === "FACULTY" || currentUser.role === "ADMIN";
+  
   const handleEditAssignment = () => {
     navigate(`/Kambaz/Courses/${cid}/Assignments/${assignmentId}`);
-  };
-  const handleDeleteAssignment = (assignmentId: string) => {
-    if (window.confirm('Are you sure you want to delete this assignment?')) {
-      deleteAssignment(assignmentId);
+  };
+  
+  const handleDeleteAssignment = async (assignmentId: string) => {
+    if (window.confirm('Do you want to delete this assignment?')) {
+      try {
+        await deleteAssignment(assignmentId);
+        // Optional: Show success message
+      } catch (error) {
+        console.error("Failed to delete assignment:", error);
+        // Optional: Show error message
+      }
     }
   };
 
@@ -35,4 +50,4 @@ export default function AssignmentControlButtons(
       <BsPlus className="fs-4" />
     </div>
   );
-} 
+}

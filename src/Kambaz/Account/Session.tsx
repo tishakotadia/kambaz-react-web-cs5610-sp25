@@ -13,11 +13,11 @@ export default function Session({ children }: { children: any }) {
       console.error(err);
     }
     setPending(false);
-};
-useEffect(() => {
-  fetchProfile();
-}, []);
-if (!pending) {
-  return children;
-}
+  };
+  useEffect(() => {
+    fetchProfile();
+  }, []);
+  if (!pending) {
+    return children;
+  }
 }

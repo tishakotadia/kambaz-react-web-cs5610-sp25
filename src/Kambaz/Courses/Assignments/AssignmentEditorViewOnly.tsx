@@ -3,35 +3,25 @@ import { Form, Button, Row, Col, Table } from "react-bootstrap";
 import { RxCross1 } from "react-icons/rx";
 import { useNavigate, useParams } from "react-router-dom";
 
-interface AssignmentEditorProps {
-  createNewAssignment?: (assignment: any) => Promise<any>;
+interface AssignmentEditorViewOnlyProps {
   updateAssignment?: (assignment: any) => Promise<any>;
   fetchAssignment?: () => Promise<any[]>;
   assignments?: any[]; // Optional: If we want to pass assignments directly
 }
 
-export default function AssignmentEditor({
-  createNewAssignment,
-  updateAssignment,
+export default function AssignmentEditorViewOnly({
   fetchAssignment,
   assignments = []
-}: AssignmentEditorProps) {
+}: AssignmentEditorViewOnlyProps) {
   const { cid, aid } = useParams();
   const navigate = useNavigate();
   
-  // State for loading data
+  // State for loading and assignments
   const [loading, setLoading] = useState(false);
   const [currentAssignments, setCurrentAssignments] = useState(assignments);
+  const [assignment, setAssignment] = useState<any>(null);
 
-  // Form fields
-  const [description, setDescription] = useState("");
-  const [title, setTitle] = useState("");
-  const [dueDate, setDueDate] = useState("");
-  const [points, setPoints] = useState("");
-  const [availableFrom, setAvailableFrom] = useState("");
-  const [availableUntil, setAvailableUntil] = useState("");
-
-  // Fetch assignments if needed and set up the form
+  // Fetch assignments if needed
   useEffect(() => {
     const loadData = async () => {
       // If we don't have assignments and there's a fetchAssignment function
@@ -46,63 +36,22 @@ export default function AssignmentEditor({
           setLoading(false);
         }
       }
-
-      // Find the current assignment if we're editing
-      if (aid) {
-        const assignment = currentAssignments.find(
-          (a: any) => a.course === cid && a._id === aid
-        );
-
-        if (assignment) {
-          setDescription(assignment.description || "");
-          setTitle(assignment.title || "");
-          setDueDate(assignment.dueDate || "");
-          setPoints(assignment.points?.toString() || "");
-          setAvailableFrom(assignment.availableFrom || "");
-          setAvailableUntil(assignment.availableUntil || assignment.editorDueDate || "");
-        }
+      
+      // Find the current assignment
+      const foundAssignment = currentAssignments.find(
+        (a: any) => a.course === cid && a._id === aid
+      );
+      
+      if (foundAssignment) {
+        setAssignment(foundAssignment);
       }
     };
 
     loadData();
   }, [aid, cid, fetchAssignment, currentAssignments]);
 
-  const handleSave = async () => {
-    try {
-      const assignmentData = {
-        description,
-        title,
-        course: cid,
-        dueDate,
-        points: parseInt(points),
-        availableFrom,
-        availableUntil,
-      };
-
-      if (!aid) {
-        // Creating a new assignment
-        if (createNewAssignment) {
-          await createNewAssignment(assignmentData);
-        } else {
-          console.error("addNewAssignment function is not available");
-        }
-      } else {
-        // Updating an existing assignment
-        if (updateAssignment) {
-          await updateAssignment({
-            _id: aid,
-            ...assignmentData
-          });
-        } else {
-          console.error("updateAssignment function is not available");
-        }
-      }
-
-      // Navigate back to assignments list
-      navigate(`/Kambaz/Courses/${cid}/Assignments`);
-    } catch (error) {
-      console.error("Error saving assignment:", error);
-    }
+  const handleNavigation = () => {
+    navigate(`/Kambaz/Courses/${cid}/Assignments`);
   };
 
   if (loading) {
@@ -116,12 +65,12 @@ export default function AssignmentEditor({
           <Form>
             <Form.Group controlId="wd-name">
               <Form.Label>Assignment Name</Form.Label>
-              <Form.Control type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
+              <Form.Control type="text" defaultValue={assignment?._id || ""} disabled/>
             </Form.Group>
 
-            <Form.Group controlId="wd-description">
+            <Form.Group controlId="wd-name">
               <Form.Label>Description</Form.Label>
-              <Form.Control type="text" value={description} onChange={(e) => setDescription(e.target.value)} />
+              <Form.Control type="text" defaultValue={assignment?.description || ""} disabled/>
             </Form.Group>
 
             <Row className="mt-3">
@@ -131,7 +80,7 @@ export default function AssignmentEditor({
                 <Form.Label>Points</Form.Label>
               </Col>
               <Col sm={5}>
-                <Form.Control type="number" value={points} onChange={(e) => setPoints(e.target.value)} />
+                <Form.Control type="number" defaultValue={assignment?.points || ""} disabled/>
               </Col>
             </Row>
 
@@ -144,14 +93,14 @@ export default function AssignmentEditor({
               </Col>
               
               <Col sm={5}>
-                 <Form.Group controlId="wd-group">
-                   <Form.Select id="wd-group">
-                     <option>Assignment Group</option>
-                     <option value="1">ASSIGNMENT</option>
-                     <option value="2">None</option>
-                   </Form.Select>
-                 </Form.Group>
-               </Col>
+                <Form.Group controlId="wd-group">
+                  <Form.Select id="wd-group" disabled>
+                    <option>Assignment Group</option>
+                    <option value="1">ASSIGNMENT</option>
+                    <option value="2">None</option>
+                  </Form.Select>
+                </Form.Group>
+              </Col>
             </Row>
 
             <Row className="mt-3">
@@ -164,7 +113,7 @@ export default function AssignmentEditor({
               
               <Col sm={5}>
                 <Form.Group controlId="wd-grade">
-                <Form.Select id="wd-grade">
+                <Form.Select id="wd-grade" disabled>
                     <option value="1">Percentage</option>
                     <option value="2">Points</option>
                   </Form.Select>
@@ -185,7 +134,7 @@ export default function AssignmentEditor({
                   <tbody>
                     <tr>
                       <td>
-                        <Form.Select id="wd-submission-type">
+                        <Form.Select id="wd-submission-type" disabled>
                           <option>Online</option>
                           <option>Offline</option>
                         </Form.Select>
@@ -197,31 +146,31 @@ export default function AssignmentEditor({
                             type="checkbox"
                             label="Text Entry"
                             style={{ marginRight: "5px", marginTop:"5px" }}
-                          />
+                            disabled />
                           <Form.Check 
                             id="wd-website-url"
                             type="checkbox"
                             label="Website URL"
                             style={{ marginRight: "5px", marginTop:"5px" }}
-                          />
+                            disabled />
                           <Form.Check 
                             id="wd-media-recordings"
                             type="checkbox"
                             label="Media Recordings"
                             style={{ marginRight: "5px", marginTop:"5px" }}
-                          />
+                            disabled />
                           <Form.Check 
                             id="wd-student-annotation"
                             type="checkbox"
                             label="Student Annotation"
                             style={{ marginRight: "5px", marginTop:"5px" }}
-                          />
+                            disabled />
                           <Form.Check 
                             id="wd-file-upload"
                             type="checkbox"
                             label="File Uploads"
                             style={{ marginRight: "5px", marginTop:"5px" }}
-                          />
+                            disabled />
                         </div>
                       </td>
                     </tr>
@@ -255,7 +204,7 @@ export default function AssignmentEditor({
                   <Col>
                     <Form.Group controlId="wd-due-date">
                       <Form.Label><strong>Due </strong></Form.Label>
-                      <Form.Control type="date" value={dueDate} onChange={(e) => setDueDate(e.target.value)} />
+                      <Form.Control type="date" defaultValue={assignment?.dueDate || assignment?.editorDueDate || ""} disabled/>
                     </Form.Group>
                   </Col>
                 </Row>
@@ -263,13 +212,13 @@ export default function AssignmentEditor({
                   <Col sm={6}>
                     <Form.Group controlId="wd-available-from">
                       <Form.Label><strong>Available From</strong></Form.Label>
-                      <Form.Control type="date" value={availableFrom} onChange={(e) => setAvailableFrom(e.target.value)} />
+                      <Form.Control type="date" defaultValue={assignment?.availableFrom || assignment?.editorAvailableFrom || ""} disabled/>
                     </Form.Group>
                   </Col>
                   <Col sm={6}>
                     <Form.Group controlId="wd-available-until">
                       <Form.Label><strong>Until</strong></Form.Label>
-                      <Form.Control type="date" value={availableUntil} onChange={(e) => setAvailableUntil(e.target.value)} />
+                      <Form.Control type="date" defaultValue={assignment?.availableUntil || assignment?.editorDueDate || ""} disabled/>
                     </Form.Group>
                   </Col>
                 </Row>
@@ -279,10 +228,10 @@ export default function AssignmentEditor({
             <hr />
             <Row className="mt-4">
               <Col className="d-flex justify-content-end">
-                <Button variant="secondary" id="wd-button-cancel" className="me-3" onClick={() => navigate(`/Kambaz/Courses/${cid}/Assignments`)}> 
+                <Button variant="secondary" id="wd-button-cancel" className="me-3" onClick={handleNavigation}> 
                   Cancel
                 </Button>
-                <Button variant="danger" id="wd-button-save" onClick={handleSave}>
+                <Button variant="danger" id="wd-button-save" onClick={handleNavigation}>
                   Save
                 </Button>
               </Col>

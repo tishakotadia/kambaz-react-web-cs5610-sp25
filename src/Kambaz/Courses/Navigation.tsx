@@ -1,46 +1,26 @@
-import { useSelector } from "react-redux"; // ✅ Import useSelector
-import { ListGroup } from "react-bootstrap";
-import { Link, useLocation } from "react-router-dom";
-import { useParams } from "react-router";
+import { Link, useParams, useLocation } from "react-router-dom";
 
-export default function CourseNavigation() { 
+export default function CourseNavigation() {
   const { cid } = useParams();
   const { pathname } = useLocation();
+  const links = ["Home", "Modules", "Piazza", "Zoom", "Assignments", "Quizzes", "Grades", "People"];
 
-  // ✅ Select courses from Redux state
-  const courses = useSelector((state: any) => state.coursesReduccer.courses);
-
-  // ✅ Find the course dynamically based on updated state
-  const course = courses.find((course: any) => course._id === cid);
-
-  const links = [
-    { label: "Home", path: `/Kambaz/Courses/${cid}/Home` },
-    { label: "Modules", path: `/Kambaz/Courses/${cid}/Modules` },
-    { label: "Piazza", path: `/Kambaz/Courses/${cid}/Piazza` },
-    { label: "Zoom", path: `/Kambaz/Courses/${cid}/Zoom` },
-    { label: "Assignments", path: `/Kambaz/Courses/${cid}/Assignments` },
-    { label: "Quizzes", path: `/Kambaz/Courses/${cid}/Quizzes` },
-    { label: "Grades", path: `/Kambaz/Courses/${cid}/Grades` },
-    { label: "People", path: `/Kambaz/Courses/${cid}/People` },
-    { label: "Settings", path: `/Kambaz/Courses/${cid}/Settings` }
-  ];
-
-  return ( 
-    <div>
-      {!course && <p className="text-danger">Course not found!</p>}
-      <ListGroup id="wd-courses-navigation" className="wd list-group fs-5 rounded-0"> 
-        {links.map((link) => (
-          <ListGroup.Item 
-            key={link.path} 
-            as={Link} 
-            to={link.path} 
-            className={`list-group-item border border-0 
-              ${pathname.includes(link.label) ? "active border border-0" : "text-danger border border-0"}`}
+  return (
+    <div id="wd-courses-navigation" className="wd list-group fs-5 rounded-0">
+      {links.map((link) => {
+        const linkPath = `/Kambaz/Courses/${cid}/${link}`;
+        const isActive = pathname.includes(link);
+        return (
+          <Link
+            key={link}
+            to={linkPath}
+            id={`wd-course-${link.toLowerCase()}-link`}
+            className={`list-group-item border border-0 ${isActive ? 'active' : 'text-danger'}`}
           >
-            {link.label}
-          </ListGroup.Item>
-        ))}
-      </ListGroup> 
+            {link}
+          </Link>
+        );
+      })}
     </div>
-  ); 
+  );
 }

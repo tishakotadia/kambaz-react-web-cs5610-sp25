@@ -1,29 +1,76 @@
-import CourseNavigation from "./Navigation";
-import Modules from "./Modules";
-import Home from "./Home";
-import Assignments from "./Assignments";
-import AssignmentEditor from "./Assignments/Editor";
-import { Navigate, Route, Routes, useParams, useLocation } from "react-router";
-import { useSelector } from "react-redux"; // ✅ Import useSelector
-import { FaAlignJustify } from "react-icons/fa6";
-import PeopleTable from "./People/Table";
-import AssignmentEditorView from "./Assignments/AssignmentEditorView";
+import {Route, Routes, useParams, useLocation } from "react-router";
+import { FaAlignJustify } from "react-icons/fa";
+import CourseNavigation from './Navigation';
+import Modules from './Modules';
+import Home from './Home';
+import Assignments from './Assignments';
+import AssignmentEditor from './Assignments/Editor';
+import PeopleTable from './People/Table';
+import Quizzes from './Quizzes';
+import Zoom from './Zoom';
+import Piazza from './Piazza';
+import AssignmentEditorViewOnly from "./Assignments/AssignmentEditorViewOnly";
+import { Navigate } from "react-router";
+import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 
-export default function Courses() {
+import Settings from "../Settings";
+import * as assignmentClient from "./Assignments/client";
+
+export default function Courses({ courses }: { courses: any[]; }) {
   const { cid } = useParams();
+  const course = courses.find((course) => course._id === Number(cid)); 
   const { pathname } = useLocation();
-  
-  // ✅ Select courses from Redux state
-  const courses = useSelector((state: any) => state.coursesReduccer.courses);
+  const currentSection = pathname.split("/")[4];
 
-  // ✅ Find the course dynamically based on updated state
-  const course = courses.find((course: any) => course._id === cid);
+  const [assignments, setAssignments] = useState<any[]>([]);
+  const { currentUser } = useSelector((state: any) => state.accountReducer);
+
+  const addNewAssignment = async (assignment: any) => {
+    const newAssignment = await assignmentClient.createNewAssignment(assignment);
+    setAssignments([...assignments, newAssignment]);
+    return newAssignment;
+  };
+
+  const deleteAssignment = async (assignmentId: any) => {
+    const status = await assignmentClient.deleteAssignment(assignmentId);
+    setAssignments(assignments.filter((assignment) => assignment._id !== assignmentId));
+    return status;
+  };
+
+  const fetchAssignments = async () => {
+    try {
+      const fetchedAssignments = await assignmentClient.fetchAllAssignments();
+      // console.log(fetchedAssignments);
+      setAssignments(fetchedAssignments);
+      return fetchedAssignments;
+    } catch (error) {
+      console.error(error);
+      return [];
+    }
+  };
+
+  useEffect(() => {
+    fetchAssignments();
+  }, [currentUser]);
+
+  const updateAssignment = async (assignment: any) => {
+    const updatedAssignment = await assignmentClient.updateAssignment(assignment);
+    setAssignments(assignments.map((c) => {
+      if (c._id === assignment._id) {
+        return updatedAssignment || assignment;
+      } else {
+        return c;
+      }
+    }));
+    return updatedAssignment;
+  };
 
   return (
     <div id="wd-courses">
       <h2 className="text-danger">
         <FaAlignJustify className="me-4 fs-4 mb-1" />
-        {course ? course.name : "Course Not Found"} &gt; {pathname.split("/")[4]}
+        {course && course.title} &gt; {currentSection}
       </h2>
       <hr />
       <div className="d-flex">
@@ -31,21 +78,43 @@ export default function Courses() {
           <CourseNavigation />
         </div>
         <div className="flex-fill">
-          <Routes>
-            <Route path="/" element={<Navigate to="Home" />} />
-            <Route path="Home" element={<Home />} />
-            <Route path="Modules" element={<Modules />} />
-            <Route path="Piazza" element={<h2>Piazza</h2>} />
-            <Route path="Zoom" element={<h2>Zoom</h2>} />
-            <Route path="Assignments" element={<Assignments />} />
-            <Route path="Assignments/:aid" element={<AssignmentEditor />} />
-            <Route path="Assignments/:aid/AssignmentEditorView" element={<AssignmentEditorView />} />
-            <Route path="Quizzes" element={<h2>Quizzes</h2>} />
-            <Route path="Grades" element={<h2>Grades</h2>} />
-            <Route path="People" element={<PeopleTable />} />
-            <Route path="Settings" element={<h2>Settings</h2>} />
-            <Route path="AssignmentEditor" element={<AssignmentEditor />} />
-          </Routes>
+        <Routes>
+                <Route path="/" element={<Navigate to="Home" />} />
+                <Route path="Home" element={<Home />} />
+                <Route path="Modules" element={<Modules />} />
+                <Route path="Piazza" element={<Piazza />} />
+                <Route path="Zoom" element={<Zoom/>} />
+                <Route path="Assignments" element={
+                  <Assignments 
+                    assignments={assignments} 
+                    createNewAssignment={addNewAssignment} 
+                    deleteAssignment={deleteAssignment} 
+                    updateAssignment={updateAssignment} 
+                    fetchAssignment={fetchAssignments} 
+                  />
+                } />
+                <Route path="Assignments/:aid" element={
+                  <AssignmentEditor 
+                    updateAssignment={updateAssignment} 
+                    fetchAssignment={fetchAssignments}
+                  />
+                } />
+                <Route path="Assignments/:aid/EditAssignment" element={
+                  <AssignmentEditorViewOnly 
+                    updateAssignment={updateAssignment}
+                    fetchAssignment={fetchAssignments}
+                  />
+                } />
+                <Route path="Quizzes" element={<Quizzes />} />
+                <Route path="People" element={<PeopleTable />} />
+                <Route path="Settings" element={<Settings />} />
+                <Route path="AssignmentEditor" element={
+                  <AssignmentEditor 
+                  createNewAssignment={addNewAssignment} 
+                    fetchAssignment={fetchAssignments}
+                  />
+                } />
+              </Routes>
         </div>
       </div>
     </div>

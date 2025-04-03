@@ -5,34 +5,55 @@ import { IoEllipsisVerticalOutline } from "react-icons/io5";
 import { IoAddSharp } from "react-icons/io5";
 import AssignmentControll1 from "./AssignmentControlLeft";
 import AssignmentControll2 from "./AssignmentControlButtons";
-//import * as db from "../../Database";
 import { Link, useNavigate, useParams } from "react-router";
-import { deleteAssignment } from "./AssignmentReducer";
-import { useSelector, useDispatch } from "react-redux";
-//import { useState } from "react";
-//import AssignmentControlRedux from "./AssignmentControlRedux";
 import { HiMagnifyingGlass } from "react-icons/hi2";
 import { FaPlus } from "react-icons/fa";
 import ProtectedRoute from "../../ProtectedRoutes";
+import { useEffect } from "react";
 
+interface AssignmentProps {
+  assignments: any[];
+  createNewAssignment: (assignment: any) => Promise<any>;
+  deleteAssignment: (assignmentId: any) => Promise<any>;
+  updateAssignment: (assignment: any) => Promise<any>;
+  fetchAssignment: () => Promise<any[]>;
+}
 
-export default function Assignments() {
+export default function Assignments({
+  assignments,
+  deleteAssignment,
+  updateAssignment,
+  fetchAssignment
+}: AssignmentProps) {
+  console.log("here 1");
+  
   const { cid } = useParams();
-  //const courseAssignments = db.assignments.filter((assignment) => assignment.course === cid);
-  //const [assignmentName, setAssignmentName] = useState("");
-  const { assignments } = useSelector((state: any) => state.assignmentReducer);
-  const dispatch = useDispatch();
   const navigate = useNavigate();
+  
+  // Use useEffect to fetch assignments when component mounts
+  useEffect(() => {
+    const loadAssignments = async () => {
+      try {
+        await fetchAssignment();
+      } catch (error) {
+        console.error("Error fetching assignments:", error);
+      }
+    };
+    
+    loadAssignments();
+  }, []);
+  
   const handleAddAssignment = () => {
-    //addAssignment();
+    // Navigate to the editor page
     navigate(`/Kambaz/Courses/${cid}/AssignmentEditor`);
+    
+    // Note: The actual addNewAssignment function would be called 
+    // in the AssignmentEditor component after the form submission
   };
+  
   return (
     <div id="wd-assignments">
-      {/* <AssignmentControlRedux setAssignmentName={setAssignmentName} assignmentName={assignmentName} addAssignment={() => {
-        dispatch(addAssignment({ name: assignmentName, course: cid }));
-        setAssignmentName("");
-      }} /> */}
+ 
       <div className="row justify-content-between">
         <div className="position-relative col-md-8">
           <HiMagnifyingGlass className="position-absolute ms-2" style={{ margin: "0 auto", height: "100%", left: "12px" }} />
@@ -78,13 +99,13 @@ export default function Assignments() {
           {assignments
             .filter((assignment: any) => assignment.course === cid)
             .map((assignment: any) => (
-              <ListGroup.Item className="d-flex justify-content-between align-items-center p-3 wd-lesson">
+              <ListGroup.Item key={assignment._id} className="d-flex justify-content-between align-items-center p-3 wd-lesson">
                 <div className="d-flex align-items-center">
                   <AssignmentControll1 />
                   <div className="mt-3">
-                    <div key={assignment._id} className="ms-3 assignment-item">
+                    <div className="ms-3 assignment-item">
                       <Link
-                        to={`/Kambaz/Courses/${cid}/Assignments/${assignment._id}/AssignmentEditorView`}
+                        to={`/Kambaz/Courses/${cid}/Assignments/${assignment._id}/EditAssignment`}
                         className="wd-assignment-link text-black text-decoration-none"
                       >
                         <strong>{assignment._id}</strong>
@@ -98,11 +119,11 @@ export default function Assignments() {
                     </div>
                   </div>
                 </div>
-                <AssignmentControll2 assignmentId={assignment._id}
-                  deleteAssignment={(assignmentId) => {
-                    dispatch(deleteAssignment(assignmentId));
-                  }}
-                   />
+                <AssignmentControll2 
+                  assignmentId={assignment._id}
+                  deleteAssignment={deleteAssignment}
+                  updateAssignment={updateAssignment}
+                />
               </ListGroup.Item>
             ))}
         </ListGroup>

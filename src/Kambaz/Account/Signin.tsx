@@ -2,9 +2,9 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { setCurrentUser } from "./reducer";
 import { useDispatch } from "react-redux";
-//import * as db from "../Database";
-import { Button, FormControl } from "react-bootstrap";
 import * as client from "./client";
+import { Button, FormControl } from "react-bootstrap";
+
 export default function Signin() {
     const [credentials, setCredentials] = useState<any>({});
   const dispatch = useDispatch();
@@ -27,6 +27,5 @@ return (
              className="mb-2" placeholder="password" type="password" id="wd-password" />
       <Button onClick={signin} id="wd-signin-btn" className="w-100" > Sign in </Button>
       <Link id="wd-signup-link" to="/Kambaz/Account/Signup"> Sign up </Link>
-    
 </div>
 );}
