@@ -89,7 +89,7 @@ export default function Dashboard({
             className="float-end" 
             onClick={toggleShowAll}
           >
-            {showAll ? "Enrolled Courses" : "All Courses"}
+            {showAll ? "View Enrolled Courses" : "View All Courses"}
           </Button>
         )}
       </h1>
