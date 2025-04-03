@@ -25,7 +25,6 @@ export default function Assignments({
   updateAssignment,
   fetchAssignment
 }: AssignmentProps) {
-  console.log("here 1");
   
   const { cid } = useParams();
   const navigate = useNavigate();
