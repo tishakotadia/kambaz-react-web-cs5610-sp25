@@ -130,7 +130,7 @@ export default function Dashboard({
           {filteredCourses.map((course: any) => (
             <Col className="wd-dashboard-course" style={{ width: "300px" }} key={course._id}>
               <Card>
-                <Link to={"/Kambaz/Courses/${course._id}/Home"}
+                <Link to={`/Kambaz/Courses/${course._id}/Home`}
                   className="wd-dashboard-course-link text-decoration-none text-dark" >
                   <Card.Img variant="top" src={course.image} width="100%" height={160} /><br />
                   <div className="card-body">
