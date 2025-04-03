@@ -138,7 +138,7 @@ export default function Dashboard({
                       {course.title} </h5>
                     <p className="wd-dashboard-course-title card-text overflow-y-hidden" style={{ maxHeight: 50 }}>
                       {course.description} </p>
-                    <button className="btn btn-primary wd-go-button"> Go </button>
+                    <button className="btn btn-primary wd-go-button me-2"> Go </button>
                     {isAdminOrFaculty &&
                       <>
                         <Button onClick={(event) => {
@@ -161,12 +161,12 @@ export default function Dashboard({
                       enrollments.some((enrollment: any) => 
                         enrollment.user === currentUser._id && enrollment.course === course._id
                       ) ?
-                        <Button className="btn btn-danger wd-card-delete-button" onClick={(e) => {
+                        <Button className="btn btn-danger wd-card-delete-button float-end" onClick={(e) => {
                           e.preventDefault();
                           dispatch(unenroll({ user: currentUser, course }));
                         }}>Unenroll</Button>
                         :
-                        <Button className="btn btn-success wd-card-delete-button" onClick={(e) => {
+                        <Button className="btn btn-success wd-card-delete-button float-end" onClick={(e) => {
                           e.preventDefault();
                           dispatch(enroll({ user: currentUser, course }));
                         }}>Enroll</Button>
