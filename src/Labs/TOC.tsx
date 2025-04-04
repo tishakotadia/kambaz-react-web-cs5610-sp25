@@ -51,11 +51,27 @@ export default function TOC() {
         
         <Nav.Item> 
             <Nav.Link href="https://github.com/tishakotadia/kambaz-react-web-cs5610-sp25" 
-          id="wd-github"
+          id="wd-github-f"
           target="_blank"
           rel="noopener noreferrer"
-          active={false}>My GitHub</Nav.Link> 
+          active={false}>My GitHub-Frontend</Nav.Link> 
         </Nav.Item> 
+
+        <Nav.Item> 
+            <Nav.Link href="https://github.com/tishakotadia/kambaz-node-server-app" 
+          id="wd-github-f"
+          target="_blank"
+          rel="noopener noreferrer"
+          active={false}>My GitHub-Backend</Nav.Link> 
+        </Nav.Item> 
+        
+        <Nav.Item> 
+            <Nav.Link href="https://kambaz-node-server-app-n9b8.onrender.com" 
+          id="wd-render"
+          target="_blank"
+          rel="noopener noreferrer"
+          active={false}>Render</Nav.Link> 
+        </Nav.Item>
         
         </Nav> 
             );}

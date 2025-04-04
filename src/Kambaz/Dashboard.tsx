@@ -29,7 +29,7 @@ export default function Dashboard({
     number: "New Number",
     startDate: "2023-09-10",
     endDate: "2023-12-15",
-    description: "New Description",
+    description: "New Description - This is the new description for the new course.",
     image: "images/reactjs.jpg",
   };
 
